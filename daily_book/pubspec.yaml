@@ -52,6 +52,7 @@ flutter:
   assets:
     - assets/images/msal.png
     - assets/images/background.png
+    - assets/images/background2.png
     - assets/images/account.png
     - assets/images/programmer.png
   #   - images/a_dot_ham.jpeg

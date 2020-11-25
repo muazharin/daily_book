@@ -59,11 +59,9 @@
                             </a>
 
                             <!-- item-->
-                            <a href="#" class="dropdown-item notify-item">
+                            <a href="<?= base_url('Login/logout') ?>" class="dropdown-item notify-item">
                                 <i class="fa fa-power-off"></i> <span>Logout</span>
                             </a>
-
-
                         </div>
                     </li>
 
@@ -97,7 +95,7 @@
                         </li>
 
                         <li class="submenu">
-                            <a href="<?= base_url('User') ?>"><i class="fa fa-fw fa-area-chart"></i><span> Charts </span> </a>
+                            <a href="<?= base_url('User') ?>"><i class="fa fa-fw fa-users"></i><span> Users </span> </a>
                         </li>
 
                         <li class="submenu">

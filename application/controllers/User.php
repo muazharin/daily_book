@@ -19,7 +19,45 @@ class User extends CI_Controller
             'user'              => $this->M_user->getUser()
         ];
 
-        var_dump($data);
+        // var_dump($data);
+        $this->template->load('template', 'v_user', $data);
+    }
+
+    public function tambah()
+    {
+        # code...
+
+        $username = $this->input->post('user');
+        $pass = $this->input->post('pw');
+        $hash = $this->bcrypt->hash_password($pass);
+        $devisi = $this->input->post('devisi');
+        $lvl = $this->input->post('lvl');
+
+
+        $data = array(
+
+            'username' => $username,
+            'password	' => $hash,
+            'devisi	' => $devisi,
+            'level	' => $lvl
+
+
+        );
+        $this->M_user->add_user($data);
+        $this->session->set_flashdata("pesan", "<div class=\"alert alert-success alert-dismissible show fade\">
+                    <div class=\"alert-body\">
+                    <button class=\"close\" data-dismiss=\"alert\">
+                        <span>×</span>
+                    </button>
+                    Data Admin Berhasil Disimpan
+                    </div>
+                </div>");
+
+        redirect(base_url('User'));
+
+
+
+
         $this->template->load('template', 'v_user', $data);
     }
 }

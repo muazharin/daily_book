@@ -13,34 +13,32 @@
         </div>
     </div>
     <!-- end row -->
+    <?php echo $this->session->flashdata('pesan'); ?>
     <div class="row">
 
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+        <div class="col-md-12 ">
             <div class="card mb-3">
                 <div class="card-header">
-                    <h3><i class="fa fa-table"></i> Basic data table</h3>
-                    DataTables is a plug-in for the jQuery Javascript library. It is a highly flexible tool, based upon the foundations of progressive enhancement, and will add advanced interaction controls to any HTML table: pagination, instant search and multi-column ordering. <a target="_blank" href="https://datatables.net/">(more details)</a>
+                    <h4 class="card-title">List User</h4>
+                    <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#addRowModal">
+                        <i class="fa fa-plus"></i>
+                        Tambah Data
+                    </button>
                 </div>
 
                 <div class="card-body">
                     <div class="table-responsive">
                         <div id="example1_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
-                            <div class="row">
 
-                                <div class="col-sm-12 col-md-6">
-                                    <div id="example1_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="example1"></label></div>
-                                </div>
-                            </div>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <table id="example1" class="table table-bordered table-hover display dataTable no-footer" role="grid" aria-describedby="example1_info">
                                         <thead>
                                             <tr role="row">
-                                                <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 52px;">No</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 69px;">Username</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 48px;">Devisi</th>
-                                                <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 48px;">#</th>
-
+                                                <th style="text-align:center">No</th>
+                                                <th style="text-align:center">Username</thing>
+                                                <th style="text-align:center">Devisi</th>
+                                                <th style="text-align:center">#</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -48,10 +46,24 @@
                                             if (isset($user)) {
                                                 foreach ($user as $data) { ?>
                                                     <tr role="row" class="even">
-                                                        <td class="sorting_1"><?= $no++ ?></td>
-                                                        <td><?= $username ?></td>
-                                                        <td><?= $devisi ?></td>
+                                                        <td style="text-align:center"><?= $no++ ?></td>
+                                                        <td style="text-align:center"><?= $data['username']; ?></td>
+                                                        <td style="text-align:center"><?= $data['devisi']; ?></td>
+                                                        <td style="text-align:center">
+                                                            <div class="button-list">
 
+                                                                <button type="button" title="Edit" class=" btn btn-primary ">
+                                                                    <i class="fa fa-edit"></i>
+                                                                </button>
+                                                                <form action="<?= base_url() ?>User/delete/<?= $data['id_user']; ?>" method="post">
+                                                                    <button type="submit" title="Hapus" class="btn btn-danger" onclick="return confirm('Apakah Anda Yakin?')">
+                                                                        <i class="fa fa-times"></i>
+                                                                    </button>
+
+                                                                </form>
+                                                            </div>
+
+                                                        </td>
                                                     </tr>
                                             <?php }
                                             } ?>
@@ -67,12 +79,68 @@
                 </div>
             </div><!-- end card-->
         </div>
-
-
-
     </div>
 
+    <div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header no-bd">
+                    <h5 class="modal-title">
+                        <span class="fw-mediumbold">
+                            Tambah Data User</span>
 
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form action="<?= base_url('User/tambah') ?>" method="post">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group ">
+                                    <label>Username *</label>
+                                    <input type="text" class="form-control" autocomplete="off" name="user" placeholder="Username" required>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <div class="form-group ">
+                                    <label>Password *</label>
+                                    <input type="password" class="form-control" name="pw" placeholder="Password" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group ">
+                                    <label>Devisi *</label>
+                                    <input type="text" class="form-control" autocomplete="off" name="devisi" placeholder="Devisi" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+
+                                <div class="form-group">
+                                    <label>Level *</label>
+                                    <select class="form-control" name="lvl">
+                                        <option value="">-Pilih-</option>
+                                        <option value="1">A</option>
+                                        <option value="2">B</option>
+                                        <option value="3">C</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer no-bd">
+                            <button type="submit" class="btn btn-success">Add</button>
+                            <!-- <button class="btn btn-danger" data-dismiss="modal">Close</button> -->
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 
 </div>

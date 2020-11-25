@@ -1,31 +1,35 @@
 <?php
-
-
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Login extends CI_Controller
 {
+
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('M_login');
+        $this->load->model('Login_m');
+        $this->load->library('bcrypt');
     }
 
     public function index()
     {
         $data = [
-            'tittle' => 'Halaman Login'
+            'tittle'          => 'Login',
+
         ];
+        check_already_login();
         $this->load->view('v_login', $data);
     }
 
     public function proses()
     {
+        # code...
         if (isset($_POST['username']) && isset($_POST['pass'])) {
 
             $username = $this->input->post('username');
             $pass = $this->input->post('pass');
             $hash = $this->bcrypt->hash_password($pass);    //encrypt password
+
 
 
             //ambil data dari database
@@ -40,14 +44,14 @@ class Login extends CI_Controller
             if ($hasil > 0) {
                 $data = $this->Login_m->viewDataByID($username);
                 foreach ($data as $dkey) {
-                    $passDB = $dkey->user_pass;
-                    $fullname = $dkey->user_nama;
+                    $passDB = $dkey->password;
+                    // $fullname = $dkey->user_nama;
                 }
                 //echo $this->bcrypt->check_password($pass, $passDB);
                 if ($this->bcrypt->check_password($pass, $passDB)) {
                     // Password match
                     $this->session->set_userdata('userlogin', $username);
-                    $this->session->set_userdata('user_nama', $fullname);
+                    // $this->session->set_userdata('user_nama', $fullname);
 
 
                     redirect(base_url() . 'Home');
@@ -62,6 +66,12 @@ class Login extends CI_Controller
             }
         }
     }
-}
 
-/* End of file Login.php */
+    public function logout()
+    {
+        $params = array('userlogin', 'user_id');
+        $this->session->unset_userdata($params);
+        redirect('Login');
+        # code...
+    }
+}

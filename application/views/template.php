@@ -36,18 +36,12 @@
 
             <!-- LOGO -->
             <div class="headerbar-left">
-                <a href="index.html" class="logo"><img alt="Logo" src="assets/images/logo.png" /> <span>Admin</span></a>
+                <a href="<?= base_url('Home') ?>" class="logo"><img alt="Logo" src="assets/images/logo.png" /> <span>Admin</span></a>
             </div>
 
             <nav class="navbar-custom">
 
                 <ul class="list-inline float-right mb-0">
-
-
-
-
-
-
 
                     <li class="list-inline-item dropdown notif">
                         <a class="nav-link dropdown-toggle nav-user" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
@@ -99,11 +93,11 @@
                     <ul>
 
                         <li class="submenu">
-                            <a class="active" href="index.html"><i class="fa fa-fw fa-bars"></i><span> Dashboard </span> </a>
+                            <a class="active" href="<?= base_url('Home') ?>"><i class="fa fa-fw fa-bars"></i><span> Dashboard </span> </a>
                         </li>
 
                         <li class="submenu">
-                            <a href="charts.html"><i class="fa fa-fw fa-area-chart"></i><span> Charts </span> </a>
+                            <a href="<?= base_url('User') ?>"><i class="fa fa-fw fa-area-chart"></i><span> Charts </span> </a>
                         </li>
 
                         <li class="submenu">

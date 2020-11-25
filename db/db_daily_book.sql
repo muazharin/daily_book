@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 22, 2020 at 08:12 AM
--- Server version: 10.4.14-MariaDB
--- PHP Version: 7.2.34
+-- Waktu pembuatan: 23 Nov 2020 pada 03.41
+-- Versi server: 10.4.14-MariaDB
+-- Versi PHP: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `keys`
+-- Struktur dari tabel `keys`
 --
 
 CREATE TABLE `keys` (
@@ -39,7 +39,7 @@ CREATE TABLE `keys` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `keys`
+-- Dumping data untuk tabel `keys`
 --
 
 INSERT INTO `keys` (`id`, `user_id`, `key`, `level`, `ignore_limits`, `is_private_key`, `ip_addresses`, `date_created`) VALUES
@@ -49,14 +49,17 @@ INSERT INTO `keys` (`id`, `user_id`, `key`, `level`, `ignore_limits`, `is_privat
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_activity`
+-- Struktur dari tabel `tb_activity`
 --
 
 CREATE TABLE `tb_activity` (
   `id_activity` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `activity` text NOT NULL,
-  `tanggal` datetime NOT NULL,
+  `solusi` varchar(30) NOT NULL,
+  `keluhan` varchar(30) NOT NULL,
+  `tanggal_keluhan` datetime NOT NULL,
+  `tanggal_solusi` datetime NOT NULL,
   `devisi` varchar(25) NOT NULL,
   `ket` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -64,7 +67,7 @@ CREATE TABLE `tb_activity` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_devisi`
+-- Struktur dari tabel `tb_devisi`
 --
 
 CREATE TABLE `tb_devisi` (
@@ -75,7 +78,7 @@ CREATE TABLE `tb_devisi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tb_devisi`
+-- Dumping data untuk tabel `tb_devisi`
 --
 
 INSERT INTO `tb_devisi` (`id_devisi`, `nama_devisi`, `kode_devisi`, `ket`) VALUES
@@ -85,7 +88,7 @@ INSERT INTO `tb_devisi` (`id_devisi`, `nama_devisi`, `kode_devisi`, `ket`) VALUE
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_profile`
+-- Struktur dari tabel `tb_profile`
 --
 
 CREATE TABLE `tb_profile` (
@@ -100,7 +103,7 @@ CREATE TABLE `tb_profile` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tb_profile`
+-- Dumping data untuk tabel `tb_profile`
 --
 
 INSERT INTO `tb_profile` (`id_profile`, `id_user`, `nama`, `email`, `nohp`, `foto`, `posisi`, `rate`) VALUES
@@ -109,7 +112,7 @@ INSERT INTO `tb_profile` (`id_profile`, `id_user`, `nama`, `email`, `nohp`, `fot
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_rate`
+-- Struktur dari tabel `tb_rate`
 --
 
 CREATE TABLE `tb_rate` (
@@ -124,7 +127,7 @@ CREATE TABLE `tb_rate` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_user`
+-- Struktur dari tabel `tb_user`
 --
 
 CREATE TABLE `tb_user` (
@@ -136,7 +139,7 @@ CREATE TABLE `tb_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tb_user`
+-- Dumping data untuk tabel `tb_user`
 --
 
 INSERT INTO `tb_user` (`id_user`, `username`, `password`, `devisi`, `level`) VALUES
@@ -147,77 +150,77 @@ INSERT INTO `tb_user` (`id_user`, `username`, `password`, `devisi`, `level`) VAL
 --
 
 --
--- Indexes for table `keys`
+-- Indeks untuk tabel `keys`
 --
 ALTER TABLE `keys`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tb_activity`
+-- Indeks untuk tabel `tb_activity`
 --
 ALTER TABLE `tb_activity`
   ADD PRIMARY KEY (`id_activity`);
 
 --
--- Indexes for table `tb_devisi`
+-- Indeks untuk tabel `tb_devisi`
 --
 ALTER TABLE `tb_devisi`
   ADD PRIMARY KEY (`id_devisi`);
 
 --
--- Indexes for table `tb_profile`
+-- Indeks untuk tabel `tb_profile`
 --
 ALTER TABLE `tb_profile`
   ADD PRIMARY KEY (`id_profile`);
 
 --
--- Indexes for table `tb_rate`
+-- Indeks untuk tabel `tb_rate`
 --
 ALTER TABLE `tb_rate`
   ADD PRIMARY KEY (`id_rate`);
 
 --
--- Indexes for table `tb_user`
+-- Indeks untuk tabel `tb_user`
 --
 ALTER TABLE `tb_user`
   ADD PRIMARY KEY (`id_user`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `keys`
+-- AUTO_INCREMENT untuk tabel `keys`
 --
 ALTER TABLE `keys`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `tb_activity`
+-- AUTO_INCREMENT untuk tabel `tb_activity`
 --
 ALTER TABLE `tb_activity`
   MODIFY `id_activity` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `tb_devisi`
+-- AUTO_INCREMENT untuk tabel `tb_devisi`
 --
 ALTER TABLE `tb_devisi`
   MODIFY `id_devisi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `tb_profile`
+-- AUTO_INCREMENT untuk tabel `tb_profile`
 --
 ALTER TABLE `tb_profile`
   MODIFY `id_profile` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `tb_rate`
+-- AUTO_INCREMENT untuk tabel `tb_rate`
 --
 ALTER TABLE `tb_rate`
   MODIFY `id_rate` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `tb_user`
+-- AUTO_INCREMENT untuk tabel `tb_user`
 --
 ALTER TABLE `tb_user`
   MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;

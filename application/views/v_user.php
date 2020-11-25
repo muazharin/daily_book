@@ -32,39 +32,47 @@
 
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <table id="example1" class="table table-bordered table-hover display dataTable no-footer" role="grid" aria-describedby="example1_info">
+                                    <table id="example1"
+                                        class="table table-bordered table-hover display dataTable no-footer" role="grid"
+                                        aria-describedby="example1_info">
                                         <thead>
-                                            <tr role="row">
+                                            <tr>
                                                 <th style="text-align:center">No</th>
                                                 <th style="text-align:center">Username</thing>
                                                 <th style="text-align:center">Devisi</th>
-                                                <th style="text-align:center">#</th>
+                                                <th style="text-align:center" width="160px">#</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php $no = 1;
                                             if (isset($user)) {
                                                 foreach ($user as $data) { ?>
-                                                    <tr role="row" class="even">
-                                                        <td style="text-align:center"><?= $no++ ?></td>
-                                                        <td style="text-align:center"><?= $data['username']; ?></td>
-                                                        <td style="text-align:center"><?= $data['devisi']; ?></td>
-                                                        <td style="text-align:center">
-                                                            <div class="button-list">
+                                            <tr role="row" class="even">
+                                                <td style="text-align:center"><?= $no++ ?></td>
+                                                <td style="text-align:center"><?= $data['username']; ?></td>
+                                                <td style="text-align:center"><?= $data['devisi']; ?></td>
+                                                <td style="text-align:center">
+                                                    <div class="row"></div>
+                                                    <div class="button-list">
 
-                                                                <button type="button" title="Edit" class=" btn btn-primary ">
-                                                                    <i class="fa fa-edit"></i>
-                                                                </button>
-                                                                <form action="<?= base_url() ?>User/delete/<?= $data['id_user']; ?>" method="post">
-                                                                    <button type="submit" title="Hapus" class="btn btn-danger" onclick="return confirm('Apakah Anda Yakin?')">
-                                                                        <i class="fa fa-times"></i>
-                                                                    </button>
+                                                        <button type="button" title="Edit" data-toggle="modal"
+                                                            data-target="#updateRowModal<?= $data['id_user']; ?>"
+                                                            class=" btn btn-primary ">
+                                                            <i class="fa fa-edit"></i>
+                                                        </button>
+                                                        <form
+                                                            action="<?= base_url() ?>User/hapus/<?= $data['id_user']; ?>"
+                                                            method="post">
+                                                            <button type="submit" title="Hapus" class="btn btn-danger"
+                                                                onclick="return confirm('Apakah Anda Yakin?')">
+                                                                <i class="fa fa-times"></i>
+                                                            </button>
 
-                                                                </form>
-                                                            </div>
+                                                        </form>
+                                                    </div>
 
-                                                        </td>
-                                                    </tr>
+                                                </td>
+                                            </tr>
                                             <?php }
                                             } ?>
 
@@ -81,6 +89,8 @@
         </div>
     </div>
 
+
+    <!-- modal tambah -->
     <div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -101,20 +111,23 @@
                             <div class="col-sm-12">
                                 <div class="form-group ">
                                     <label>Username *</label>
-                                    <input type="text" class="form-control" autocomplete="off" name="user" placeholder="Username" required>
+                                    <input type="text" class="form-control" autocomplete="off" name="user"
+                                        placeholder="Username" required>
                                 </div>
                             </div>
 
                             <div class="col-sm-12">
                                 <div class="form-group ">
                                     <label>Password *</label>
-                                    <input type="password" class="form-control" name="pw" placeholder="Password" required>
+                                    <input type="password" class="form-control" name="pw" placeholder="Password"
+                                        required>
                                 </div>
                             </div>
                             <div class="col-sm-12">
                                 <div class="form-group ">
                                     <label>Devisi *</label>
-                                    <input type="text" class="form-control" autocomplete="off" name="devisi" placeholder="Devisi" required>
+                                    <input type="text" class="form-control" autocomplete="off" name="devisi"
+                                        placeholder="Devisi" required>
                                 </div>
                             </div>
                             <div class="col-sm-12">
@@ -142,6 +155,77 @@
         </div>
     </div>
 
+    <!-- selesai modal tambah -->
+
+    <!-- modal edit -->
+    <?php foreach ($user as $data) : ?>
+    <div class="modal fade" id="updateRowModal<?= $data['id_user']; ?>" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header no-bd">
+                    <h5 class="modal-title">
+                        <span class="fw-mediumbold">
+                            Update Data User</span>
+
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <form action="<?= base_url('User/editpost') ?>" method="post">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group ">
+                                    <label>Username </label>
+                                    <input type="hidden" class="form-control" value="<?= $data['id_user']; ?>"
+                                        name="id">
+                                    <input type="text" class="form-control" autocomplete="off" name="user"
+                                        value="<?= $data['username']; ?>">
+                                </div>
+                            </div>
+
+                            <!-- <div class="col-sm-12">
+                                <div class="form-group ">
+                                    <label>Password (Kosongkan jika tidak diganti)</label>
+                                    <input type="password" class="form-control" name="pw_new">
+                                    <input type="hidden" value="<?= $data['password']; ?>" name="pw_lama">
+                                </div>
+                            </div> -->
+                            <div class="col-sm-12">
+                                <div class="form-group ">
+                                    <label>Devisi </label>
+                                    <input type="text" class="form-control" autocomplete="off" name="devisi"
+                                        value="<?= $data['devisi']; ?>">
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+
+                                <div class="form-group">
+                                    <label>Level</label>
+                                    <input type="hidden" value="<?= $lvl = $data['level']; ?>">
+                                    <select class="form-control" name="lvl">
+                                        <option <?php echo ($lvl == '1') ? "selected" : "" ?> value="1">A</option>
+                                        <option <?php echo ($lvl == '2') ? "selected" : "" ?> value="2">B</option>
+                                        <option <?php echo ($lvl == '3') ? "selected" : "" ?> value="3">C</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer no-bd">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                            <!-- <button class="btn btn-danger" data-dismiss="modal">Close</button> -->
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <?php endforeach; ?>
 
 </div>
 <!-- END container-fluid -->

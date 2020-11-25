@@ -61,12 +61,14 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-6">
             <div class="card mb-3">
                 <div class="card-header">
-                    <h3><i class="fa fa-line-chart"></i> Items Sold Amount</h3>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus non luctus metus. Vivamus fermentum ultricies orci sit amet sollicitudin.
+                    <h3><i class="fa fa-line-chart"></i> Grafik Activity</h3>
+
                 </div>
 
-                <div class="card-body"><iframe class="chartjs-hidden-iframe" tabindex="-1" style="display: block; overflow: hidden; border: 0px; margin: 0px; top: 0px; left: 0px; bottom: 0px; right: 0px; height: 100%; width: 100%; position: absolute; pointer-events: none; z-index: -1;"></iframe>
-                    <canvas id="lineChart" width="640" height="320" style="display: block; width: 320px; height: 160px;"></canvas>
+                <div class="card-body"><iframe class="chartjs-hidden-iframe" tabindex="-1"
+                        style="display: block; overflow: hidden; border: 0px; margin: 0px; top: 0px; left: 0px; bottom: 0px; right: 0px; height: 100%; width: 100%; position: absolute; pointer-events: none; z-index: -1;"></iframe>
+                    <canvas id="lineChart" width="640" height="320"
+                        style="display: block; width: 320px; height: 160px;"></canvas>
                 </div>
                 <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
             </div><!-- end card-->

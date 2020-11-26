@@ -89,8 +89,17 @@ class User extends CI_Controller
         $this->template->load('template', 'v_user', $data);
     }
 
-    public function hapus()
+    public function hapus($id)
     {
+        $data = array('id_user' => $id);
+        $this->M_user->delete($data);
+        $this->session->set_flashdata("pesan", "<div class=\"sufee-alert alert with-close alert-success alert-dismissible fade show\" id=\"alert\">
+			<span class=\"badge badge-pill badge-success\"></span>
+			Data Berhasil Dihapus
+			<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">
+				<span aria-hidden=\"true\">×</span>
+			</button></div>");
+        redirect(base_url('User'));
     }
 }
 

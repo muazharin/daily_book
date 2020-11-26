@@ -3,14 +3,10 @@
 class Login_m extends CI_Model
 {
 
-    function prosesLogin($username)
+    function cek_login($table, $data)
     {
-        $this->db->where('username', $username);
-
-        return $this->db->get('tb_user')->row();
+        return $this->db->get_where($table, $data);
     }
-
-
 
     function viewDataByID($username)
     {

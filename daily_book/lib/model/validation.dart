@@ -40,3 +40,11 @@ String valPhone(String value) {
   }
   return null;
 }
+
+String valMessage(String value) {
+  if (value.length == 0) {
+    return "Message is Required";
+  } else {
+    return null;
+  }
+}

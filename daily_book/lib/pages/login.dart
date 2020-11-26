@@ -43,7 +43,7 @@ class _LoginState extends State<Login> {
             child: Row(
               children: <Widget>[
                 Text(
-                  'MSAL Group - Daily Book App',
+                  'MSAL Group - Helpdesk App',
                   style: TextStyle(color: Colors.blueGrey, fontSize: 16.0),
                 ),
               ],

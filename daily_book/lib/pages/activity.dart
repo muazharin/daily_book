@@ -1,4 +1,8 @@
+import 'package:daily_book/pages/activity_add.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:daily_book/model/optionlog.dart';
+import 'package:daily_book/pages/login.dart';
 
 class Activity extends StatefulWidget {
   @override
@@ -6,8 +10,76 @@ class Activity extends StatefulWidget {
 }
 
 class _ActivityState extends State<Activity> {
+  String username = '';
+  String password = '';
+  String devisi = '';
+  String posisi = '';
+  String email = '';
+  String foto = '';
+  String nohp = '';
+  String key = '';
+  logout() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    setState(() {
+      sp.setInt('value', null);
+      sp.setString('id', null);
+      sp.setString('username', null);
+      sp.setString('password', null);
+      sp.setString('devisi', null);
+      sp.setString('posisi', null);
+      sp.setString('email', null);
+      sp.setString('foto', null);
+      sp.setString('nohp', null);
+      sp.setString('key', null);
+    });
+  }
+
+  var value;
+  getPref() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    setState(() {
+      value = sp.getInt('value');
+      log = value == 1 ? LoginStatus.isSignIn : LoginStatus.isSignOut;
+      username = sp.getString('username');
+      password = sp.getString('password');
+      devisi = sp.getString('devisi');
+      posisi = sp.getString('posisi');
+      email = sp.getString('email');
+      foto = sp.getString('foto');
+      nohp = sp.getString('nohp');
+      key = sp.getString('key');
+    });
+  }
+
+  @override
+  void initState() {
+    getPref();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      title: Text("Keluar?"),
+      content: Text("Anda yakin ingin keluar?"),
+      actions: [
+        FlatButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: Text('No')),
+        FlatButton(
+            onPressed: () {
+              logout();
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => Login()),
+                (Route<dynamic> route) => false,
+              );
+            },
+            child: Text('Yes'))
+      ],
+    );
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -32,10 +104,17 @@ class _ActivityState extends State<Activity> {
                         )),
                     Spacer(),
                     InkWell(
-                        onTap: null,
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return alert;
+                            },
+                          );
+                        },
                         child: Icon(
-                          Icons.more_vert_rounded,
-                          size: 24.0,
+                          Icons.exit_to_app,
+                          size: 32.0,
                           color: Colors.amber,
                         ))
                   ],
@@ -60,14 +139,14 @@ class _ActivityState extends State<Activity> {
                                 Spacer(),
                                 RaisedButton(
                                   onPressed: () {},
-                                  color: Colors.blue,
+                                  color: Color(0xfffd8e00),
                                   child: InkWell(
                                     onTap: null,
                                     child: Container(
                                       width: double.infinity,
                                       height: 56.0,
                                       decoration: BoxDecoration(
-                                          color: Colors.blue,
+                                          color: Color(0xfffd8e00),
                                           borderRadius:
                                               BorderRadius.circular(4.0)),
                                       child: Center(
@@ -109,19 +188,19 @@ class _ActivityState extends State<Activity> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Muazharin Alfan',
+                                username,
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16.0),
                               ),
-                              Text('alfanmuazharin@gmail.com'),
                               SizedBox(height: 8.0),
-                              Row(
-                                children: [
-                                  Text('4.5 '),
-                                  Icon(Icons.star, color: Colors.amber),
-                                ],
-                              )
+                              Text(email),
+                              // Row(
+                              //   children: [
+                              //     Text('4.5 '),
+                              //     Icon(Icons.star, color: Colors.amber),
+                              //   ],
+                              // )
                             ],
                           )
                         ],
@@ -137,7 +216,13 @@ class _ActivityState extends State<Activity> {
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 32.0),
         child: FloatingActionButton(
-          onPressed: null,
+          onPressed: () {
+            print('pindah page');
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ActivityAdd()),
+            );
+          },
           child: Icon(
             Icons.add,
             color: Colors.white,

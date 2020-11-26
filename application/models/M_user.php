@@ -10,6 +10,29 @@ class M_user extends CI_Model
             return $this->db->get('tb_user', ['id_user' => $id])->result_array();
         }
     }
+
+    function add_user($data)
+    {
+        $this->db->insert('tb_user', $data);
+        return TRUE;
+    }
+
+    function update_user($id, $data)
+    {
+        $this->db->where('id_user', $id);
+        $this->db->update('tb_user', $data);
+
+        return TRUE;
+    }
+
+    function delete($data)
+    {
+        $this->db->where($data);
+        $this->db->delete('tb_user');
+        return TRUE;
+    }
+
+
     public function createUser()
     {
         date_default_timezone_set("Asia/Jakarta");

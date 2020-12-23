@@ -10,8 +10,6 @@ import 'package:async/async.dart';
 import 'package:daily_book/model/baseurl.dart';
 import 'package:path/path.dart' as path;
 import 'package:shared_preferences/shared_preferences.dart';
-// import 'dart:convert';
-// import 'package:file_picker/file_picker.dart';
 
 class ActivityAdd extends StatefulWidget {
   @override
@@ -25,13 +23,8 @@ class _ActivityAddState extends State<ActivityAdd> {
   bool _validateSend = false;
   File _image;
   String message = '';
-  String username = '';
-  String password = '';
+  String id = '';
   String devisi = '';
-  String posisi = '';
-  String email = '';
-  String foto = '';
-  String nohp = '';
   String key = '';
 
   Future getImageGallery() async {
@@ -73,13 +66,8 @@ class _ActivityAddState extends State<ActivityAdd> {
   getPref() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     setState(() {
-      username = sp.getString('username');
-      password = sp.getString('password');
+      id = sp.getString('id');
       devisi = sp.getString('devisi');
-      posisi = sp.getString('posisi');
-      email = sp.getString('email');
-      foto = sp.getString('foto');
-      nohp = sp.getString('nohp');
       key = sp.getString('key');
     });
   }
@@ -98,7 +86,7 @@ class _ActivityAddState extends State<ActivityAdd> {
           builder: (context) {
             return Container(
               color: Color(0xFF737373),
-              height: 120.0,
+              height: 130.0,
               child: Container(
                 decoration: BoxDecoration(
                   color: Theme.of(context).canvasColor,
@@ -114,6 +102,7 @@ class _ActivityAddState extends State<ActivityAdd> {
                       title: Text('Gallery'),
                       onTap: () => getImageGallery(),
                     ),
+                    Divider(),
                     ListTile(
                       leading: Icon(Icons.camera_alt),
                       title: Text('Camera'),
@@ -149,13 +138,19 @@ class _ActivityAddState extends State<ActivityAdd> {
           var length = await _image.length();
           var uri = Uri.parse(Baseurl.submitRequest);
           var request = http.MultipartRequest("POST", uri);
-          request.fields['pengirim'] = message;
-          request.fields['daily-book-msal-key'] = message;
-          request.files.add(http.MultipartFile("image", stream, length,
+          request.fields['keluhan'] = message;
+          request.fields['id'] = id;
+          request.fields['devisi'] = devisi;
+          request.fields['daily-book-msal-key'] = key;
+          request.files.add(http.MultipartFile("foto", stream, length,
               filename: path.basename(_image.path)));
           var response = await request.send();
           if (response.contentLength != 2) {
             showInSnackBar('Request sent succesfully!');
+            setState(() {
+              _image = null;
+              _keySend.currentState.reset();
+            });
           } else {
             showInSnackBarErr('Request failed to send!');
           }
@@ -282,25 +277,21 @@ class _ActivityAddState extends State<ActivityAdd> {
                               border: OutlineInputBorder()),
                         ),
                         SizedBox(height: 16.0),
-                        RaisedButton(
-                          onPressed: _submitRequest,
-                          color: Color(0xfffd8e00),
-                          child: InkWell(
-                            onTap: null,
-                            child: Container(
-                              width: double.infinity,
-                              height: 56.0,
-                              decoration: BoxDecoration(
-                                  color: Color(0xfffd8e00),
-                                  borderRadius: BorderRadius.circular(4.0)),
-                              child: Center(
-                                child: Text(
-                                  "Submit",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 15,
-                                    letterSpacing: 1.0,
-                                  ),
+                        InkWell(
+                          onTap: _submitRequest,
+                          child: Container(
+                            width: double.infinity,
+                            height: 56.0,
+                            decoration: BoxDecoration(
+                                color: Color(0xfffd8e00),
+                                borderRadius: BorderRadius.circular(4.0)),
+                            child: Center(
+                              child: Text(
+                                "Submit",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  letterSpacing: 1.0,
                                 ),
                               ),
                             ),

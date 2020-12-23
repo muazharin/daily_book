@@ -41,7 +41,6 @@ class User extends REST_Controller
                 'message' => 'Username sudah ada! Silahkan gunakan username lain'
             ], REST_Controller::HTTP_BAD_REQUEST);
         } else {
-
             if ($this->M_user->createUser() > 0) {
                 $this->response([
                     'status' => true,

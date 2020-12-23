@@ -218,6 +218,7 @@ class _LoginState extends State<Login> {
       value = sp.getInt('value');
       log = value == 1 ? LoginStatus.isSignIn : LoginStatus.isSignOut;
     });
+    print(log);
   }
 
   @override
